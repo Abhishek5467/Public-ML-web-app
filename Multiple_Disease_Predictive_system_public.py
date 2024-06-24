@@ -119,11 +119,16 @@ if(selected == "Heart disease prediction"):
     
     
     # code for prediction
-    Heart_diagnosis = []
+    Heart_diagnosis = ""
     
     # creating button for prediction
     if(st.button("Heart Disease Prediction Result")):
-        Heart_diagnosis = Heart_disease_prediction([age,sex,chest_pain_type,resting_blood_pressure,cholestoral,fasting_blood_sugar,rest_ecg,Max_heart_rate,exercise_induced_angina,oldpeak,slope,vessels_colored_by_flourosopy,thalassemia])
+        Heart_prediction = Heart_disease_model.predict(np.asarray([age,sex,chest_pain_type,resting_blood_pressure,cholestoral,fasting_blood_sugar,rest_ecg,Max_heart_rate,exercise_induced_angina,oldpeak,slope,vessels_colored_by_flourosopy,thalassemia]).reshape(1,-1))
+        
+        if (Heart_prediction[0] == 0):
+          Heart_diagnosis = 'The Person does not have a Heart Disease!'
+        else:
+          Heart_diagnosis = 'The Person has Heart Disease!'
         
     st.success(Heart_diagnosis)
     
@@ -165,10 +170,15 @@ else:
 
     
     # code for prediction
-    diabetes_diagnosis = []
+    diabetes_diagnosis = ""
     
     # creating button for prediction
     if(st.button("Diabetes Prediction Result")):
-        diabetes_diagnosis = Heart_disease_prediction([Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age])
+        diabetes_prediction = Diabetes_model.predict(np.asarray([Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]).reshape(1,-1))
+        
+        if (diabetes_prediction[0] == 0):
+          diabetes_diagnosis = 'The Person does not have a Diabetes!'
+        else:
+          diabetes_diagnosis = 'The Person has Diabetes!'
         
     st.success(diabetes_diagnosis)
