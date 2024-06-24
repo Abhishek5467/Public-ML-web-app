@@ -62,7 +62,7 @@ with st.sidebar:
                            ['Heart disease prediction',
                             'Diabetes prediction'],
                            icons = ["heart-pulse-fill", "file-medical"],
-                           default_index = 0)
+                           default_index = 1)
     
 
 # Heart disease prediction page
