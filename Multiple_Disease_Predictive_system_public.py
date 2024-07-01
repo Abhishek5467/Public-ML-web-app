@@ -17,6 +17,9 @@ Heart_disease_model = pickle.load(open("Heart_disease_model.sav", "rb"))
 
 Diabetes_model = pickle.load(open("Diabetes_model.sav", "rb"))
 
+Breast_cancer_model = pickle.load(open("Breast_Cancer_model.sav", "rb"))
+
+
 
 def Heart_disease_prediction(input_data):
     
@@ -45,7 +48,7 @@ def Diabetes_prediction(input_data):
     input_data_reshaped = input_data_as_numpy_array.reshape(1, -1)
     
     prediction = Diabetes_model.predict(input_data_reshaped)
-    print(hello)
+   
 
     # printing the prediction
     if (prediction[0] == 0):
@@ -60,9 +63,10 @@ with st.sidebar:
     
     selected = option_menu("Multiple Disease Predictive System",
                            ['Heart disease prediction',
-                            'Diabetes prediction'],
-                           icons = ["heart-pulse-fill", "file-medical"],
-                           default_index = 1)
+                            'Diabetes prediction',
+                            'Breast cancer prediction'],
+                           icons = ["heart-pulse-fill", "file-medical", "postcard-heart-fill"],
+                           default_index = 0)
     
 
 # Heart disease prediction page
@@ -132,7 +136,7 @@ if(selected == "Heart disease prediction"):
         
     st.success(Heart_diagnosis)
     
-else:
+if(selected=='Diabetes prediction'):
     
     # page title
     st.title("Diabetes Prediction")
@@ -182,3 +186,70 @@ else:
           diabetes_diagnosis = 'The Person has Diabetes!'
         
     st.success(diabetes_diagnosis)
+    
+else:
+
+    col1, col2, col3, col4, col5 = st.columns(5)
+    
+    with col1:
+      
+        mean_radius = st.number_input("mean radius")
+        mean_compactness = st.number_input("mean compactness")
+        radius_error = st.number_input("radius error")
+        compactness_error = st.number_input("compactness error")
+        worst_radius = st.number_input("worst radius")
+        worst_compactness = st.number_input("worst compactness")
+        
+    
+    with col2:
+      
+        mean_texture = st.number_input("mean texture")
+        mean_concavity = st.number_input("mean concavity")
+        texture_error = st.number_input("texture error")
+        concavity_error = st.number_input("concavity error")
+        worst_texture = st.number_input("worst texture")
+        worst_concavity = st.number_input("worst concavity")
+        
+    
+    with col3:
+      
+        mean_perimeter = st.number_input("mean perimeter")
+        mean_concave_points = st.number_input("mean concave points")
+        perimeter_error = st.number_input("perimeter error")
+        concave_points_error = st.number_input("concave points error")
+        worst_perimeter = st.number_input("worst perimeter")
+        worst_concave_points = st.number_input("worst concave points")
+        
+    
+    with col4:
+      
+        mean_area = st.number_input("mean area")
+        mean_symmetry = st.number_input("mean symmetry")
+        area_error = st.number_input("area error")
+        symmetry_error = st.number_input("symmetry error")
+        worst_area = st.number_input("worst area")
+        worst_symmetry = st.number_input("worst symmetry")
+        
+    
+    with col5:
+      
+        mean_smoothness = st.number_input("mean smoothness")
+        mean_fractal_dimension = st.number_input("mean fractal dimension")
+        smoothness_error = st.number_input("smoothness error")
+        fractal_dimension_error = st.number_input("fractal dimension error")
+        worst_smoothness = st.number_input("worst smoothness")
+        worst_fractal_dimension = st.number_input("worst fractal dimension")
+        
+    # code for prediction
+    Breast_cancer_diagnosis = ""
+    
+    # creating button for prediction
+    if(st.button("Breast Cancer Prediction Result")):
+        Breast_cancer_prediction = Breast_cancer_model.predict(np.asarray([Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]).reshape(1,-1))
+        
+        if (Breast_cancer_prediction[0] == 0):
+          Breast_cancer_diagnosis = 'The tumor is Malignant'
+        else:
+          Breast_cancer_diagnosis = 'The tumor is Benign'
+        
+    st.success(Breast_cancer_diagnosis)
