@@ -17,44 +17,12 @@ Heart_disease_model = pickle.load(open("Heart_disease_model.sav", "rb"))
 
 Diabetes_model = pickle.load(open("Diabetes_model.sav", "rb"))
 
-Breast_cancer_model = pickle.load(open("Breast_Cancer_model.sav", "rb"))
-
-
-
-def Heart_disease_prediction(input_data):
-    
-    # change the input data to a numpy array
-    input_data_as_numpy_array = np.asarray(input_data)
-
-    # reshape the numpy array as we are prediction for only one instance
-    input_data_reshaped = input_data_as_numpy_array.reshape(1, -1)
-
-    prediction = Heart_disease_model.predict(input_data_reshaped)
-    # print(prediction)
-    
-
-    if (prediction[0] == 0):
-      return 'The Person does not have a Heart Disease!'
-    else:
-      return 'The Person has Heart Disease!'
-
-
-def Diabetes_prediction(input_data):
-    
-    # change the input data to a numpy array
-    input_data_as_numpy_array = np.asarray(input_data)
-    
-    # reshape the numpy array
-    input_data_reshaped = input_data_as_numpy_array.reshape(1, -1)
-    
-    prediction = Diabetes_model.predict(input_data_reshaped)
-   
-
-    # printing the prediction
-    if (prediction[0] == 0):
-      return 'The Person does not have a Diabetes!'
-    else:
-      return 'The Person has Diabetes!'    
+print("Loading model...")
+try:
+    Breast_cancer_model = pickle.load(open("Breast_Cancer_model.sav", "rb"))
+    print("Model loaded successfully!")
+except Exception as e:
+    print(f"Error loading model: {e}")
     
 
 # sidebar for navigate
